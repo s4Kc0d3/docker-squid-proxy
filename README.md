@@ -40,11 +40,15 @@ This repository contains the necessary files to build and run a Squid proxy serv
     ```bash
     docker ps
     ```
+4. **Generate proxy.pac file in current directory**
+
 
 ## Usage
 
 Once the container is up and running, Squid will be listening on port `3128`. You can configure your
 applications or devices to use this proxy by setting the proxy server to `http://<your-docker-host-ip>:3128`.
+
+Additionally, you can use the Proxy Auto-Configuration (PAC) file provided. Access the PAC file through Nginx at the following URL: `http://ip:8000/proxy.pac`
 
 
 ## Volumes (optional)
