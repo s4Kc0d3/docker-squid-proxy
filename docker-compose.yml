@@ -1,24 +1,19 @@
-version: '3'
-
 services:
-    squid:
-      build:
-        context: .
-        dockerfile: Dockerfile
-      container_name: squid
-      restart: always
-      ports:
-        - 3128:3128
-      #volumes:
-      #  - ./squid/cache:/var/spool/squid
-      #  - ./squid/logs:/var/log/squid
+  squid:
+    image: ubuntu/squid:latest
+    container_name: squid
+    restart: always
+    ports:
+      - "3128:3128"
+    volumes:
+      - ./squid.conf:/etc/squid/squid.conf
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    volumes:
+      - ./proxy.pac:/usr/share/nginx/html/proxy.pac
+    ports:
+      - "8000:80"
+    depends_on:
+      - squid
 
-    nginx:
-      image: nginx:alpine
-      container_name: nginx
-      volumes:
-        - ./proxy.pac:/usr/share/nginx/html/proxy.pac
-      ports:
-        - 8000:80
-      depends_on:
-        - squid
